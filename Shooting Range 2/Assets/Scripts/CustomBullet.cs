@@ -3,26 +3,34 @@ using UnityEngine;
 public class CustomBullet : MonoBehaviour
 {
     // Assignables
-    public Rigidbody rb;
-    public GameObject explosion;
-    public LayerMask whatIsEnemies;
-    //public GameObject bulletHolePrefab;
-    public AudioClip explosionClip;
+    Rigidbody rb;
+    [SerializeField]
+    GameObject explosion;
+    [SerializeField]
+    LayerMask whatIsEnemies;
+    [SerializeField]
+    AudioClip explosionClip;
 
     // Stats
     [Range(0f,1f)]
-    public float bounciness;
-    public bool useGravity;
+    float bounciness;
+    [SerializeField]
+    bool useGravity;
 
     // Damage   
-    public int explosionDamage;
-    public float explosionRange;
-    public float explosionForce;
+    [SerializeField]
+    int explosionDamage;
+    [SerializeField]
+    float explosionRange;
+    [SerializeField]
+    float explosionForce;
 
     // Lifetime
-    public int maxCollisions;
-    public float maxLifetime;
-    public bool explodeOnTouch = true;
+    [SerializeField]
+    int maxCollisions;
+    [SerializeField]
+    float maxLifetime;
+    bool explodeOnTouch = true;
 
     // Bools
     bool exploded = false;
@@ -32,6 +40,7 @@ public class CustomBullet : MonoBehaviour
 
     private void Start()
     {
+        // Run a setup script on start
         Setup();
     }
 
@@ -42,28 +51,23 @@ public class CustomBullet : MonoBehaviour
         maxLifetime -= Time.deltaTime;
         if (maxLifetime <= 0) Explode();
 
+        // If gameobject has exploded but is not destroyed
         if (exploded)
             Destroy(gameObject, 0.05f);
     }
 
     public void Explode()
     {
-
-
-        if (explosion == null)
-        {
-            //GameObject go = Instantiate(bulletHolePrefab, transform.position, Quaternion.identity);
-        }
+        // Check if there is an explosion to instantiate and it has not already exploded
 
         if (explosion != null && !exploded)
         {
             GameObject go = Instantiate(explosion, transform.position, Quaternion.identity);
             exploded = true;
 
-
+            // If there is an audiosource, play clip at the explosion site
             if (gameObject.GetComponent<AudioSource>())
             {
-                Debug.Log("Audiosource found");
                 AudioSource.PlayClipAtPoint(explosionClip, transform.position, 1f);
 
             }
@@ -75,7 +79,7 @@ public class CustomBullet : MonoBehaviour
                 if (enemies[i].GetComponent<Target>())
                     enemies[i].GetComponent<Target>().TakeDamage(explosionDamage);
             }
-
+            // Check for enemies to move
             Collider[] enemiesToMove = Physics.OverlapSphere(transform.position, explosionRange, whatIsEnemies);
             for (int i = 0; i < enemiesToMove.Length; i++)
             {
@@ -85,16 +89,6 @@ public class CustomBullet : MonoBehaviour
                     enemies[i].GetComponent<Rigidbody>().AddExplosionForce(explosionForce, transform.position, explosionRange);
 
             }
-
-            /*
-
-            // Destroy gameobject after short delay
-            MeshRenderer mr = gameObject.GetComponent<MeshRenderer>();
-                mr.enabled = false;
-            TrailRenderer tr = gameObject.GetComponent<TrailRenderer>();
-                tr.enabled = false;
-            */
-            //exploded = true;
             
             // BUG: If going VERY close, the bullet might ricochet, before exploding.
             Destroy(gameObject, 0.05f);
@@ -117,8 +111,11 @@ public class CustomBullet : MonoBehaviour
 
     private void Setup()
     {
+        // Set the Rigidbody component
+        rb = gameObject.GetComponent<Rigidbody>();
+        // Set number of collisions to 0
         collisions = 0;
-        // Create a new Physic material
+        // Create a new Physic material with low friction and high bounce value
         physics_mat = new PhysicMaterial();
         physics_mat.bounciness = bounciness;
         physics_mat.frictionCombine = PhysicMaterialCombine.Minimum;
@@ -133,6 +130,7 @@ public class CustomBullet : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
+        // Draw explosion range in red color, when object is selected
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, explosionRange);
     }

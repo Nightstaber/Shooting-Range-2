@@ -249,38 +249,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 40697488}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &40697491
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 40697490}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47e32d6a39864ae459e3d37ad4a9116e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 10
-  range: 100
-  firerate: 11.666667
-  impactForce: 30
-  maxAmmo: 28
-  reloadTime: 1.5
-  fullAuto: 1
-  scopedWeapon: 0
-  animator: {fileID: 1541117099}
-  fpsCam: {fileID: 963194227}
-  muzzleFlash: {fileID: 314620473}
-  impactEffect: {fileID: 5656964147280386101, guid: 6f96f126ee1566240925927c67ed9539,
-    type: 3}
-  scopeCanvas: {fileID: 969444259}
-  crosshairCanvas: {fileID: 408591031}
-  gunShotSound: {fileID: 1541117100}
-  gunShot: {fileID: 8300000, guid: 8018acccaecddce498259f8e5a93b440, type: 3}
-  ammoCount: {fileID: 0}
-  weaponCam: {fileID: 1606213007}
-  scopedFOV: 15
 --- !u!114 &40697492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -885,7 +853,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 1340773940}
-  pauseMenuActive: 0
   options: {fileID: 814428400}
 --- !u!1 &158669480
 GameObject:
@@ -3076,10 +3043,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e0047503c05c8e418a60e178b5dbf2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  throwForce: 20
   grenadePrefab: {fileID: 6871647818066389037, guid: b20e5287bd10bb842a813e091bc5a6ba,
     type: 3}
-  gunShotSound: {fileID: 0}
   gunShot: {fileID: 8300000, guid: 9f14cb6e6fe5b594fbf588b16461d2c2, type: 3}
 --- !u!1 &465340384
 GameObject:
@@ -10341,8 +10306,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f25e2e268c8c4fe4c948dae4177eaad5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultMouseSensitivity: 200
-  mouseSensitivity: 200
   playerBody: {fileID: 1741128994}
   oldMouseSens: 0
 --- !u!114 &963194230
@@ -14734,7 +14697,7 @@ GameObject:
   - component: {fileID: 1741128995}
   - component: {fileID: 1741128996}
   m_Layer: 0
-  m_Name: First Person Player
+  m_Name: FirstPersonPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14787,16 +14750,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72bdb0e19e9ae7e408eb2db9d93eaa08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 1741128995}
-  speed: 12
-  moveSpeed: 0
-  gravity: 9.82
-  jumpHeight: 3
-  groundCheck: {fileID: 958356242}
-  groundDistance: 1
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 256
 --- !u!1 &1830315146
 GameObject:
   m_ObjectHideFlags: 0

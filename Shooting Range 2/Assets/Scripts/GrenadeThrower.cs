@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class GrenadeThrower : MonoBehaviour { 
 
-    public float throwForce = 40f;
-    public GameObject grenadePrefab;
+    // Throwforce and prefab
+    float throwForce = 20f;
+    [SerializeField]
+    GameObject grenadePrefab;
 
-    public AudioSource gunShotSound;
-    public AudioClip gunShot;
+    // Audioclip 
+    [SerializeField]
+    AudioClip gunShot;
 
     // Start is called before the first frame update
 
@@ -16,6 +19,7 @@ public class GrenadeThrower : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        // Throw grenade on mouseclick
         if (Input.GetMouseButtonDown(0))
         {
             ThrowGrenade();
@@ -24,17 +28,11 @@ public class GrenadeThrower : MonoBehaviour {
 
     void ThrowGrenade()
     {
+        // Instantiate grenade, find Rigidbody and addforce to throw it away from the player
         var grenade = Instantiate(grenadePrefab, transform.position, transform.rotation);
         Rigidbody rb = grenade.GetComponent<Rigidbody>();
         rb.AddForce(transform.parent.forward * throwForce, ForceMode.VelocityChange);
 
-    }
-
-    public void ExplosionSound()
-    {
-        // Explosion sound
-
-        gunShotSound.PlayOneShot(gunShot);
     }
 }
 

@@ -8,17 +8,21 @@ using System.Linq;
 
 public class OptionsScript : MonoBehaviour
 {
+    // Insert AudioMixer for volume slider
+    [SerializeField]
+    AudioMixer audioMixer;
 
-    public AudioMixer audioMixer;
-
+    // Create resolution array, to be used in the setup
     Resolution[] resolutions;
 
-    public TMP_Dropdown resolutionDropdown;
-    public TMP_Dropdown qualityDropdown;
-    public Slider sensSlider;
-
-    float sensMultiplier = 1f;
-    float sensTempMulti = 0f;
+    // Dropdowns and slider for options
+    [SerializeField]
+    TMP_Dropdown resolutionDropdown;
+    [SerializeField]
+    TMP_Dropdown qualityDropdown;
+    [SerializeField]
+    Slider sensSlider;
+    
 
     MouseLook ml;
 
@@ -57,65 +61,45 @@ public class OptionsScript : MonoBehaviour
             {
                 currentResolutionIndex = i;
             }
-
-
         }
 
-        //var uniquelist = options.Distinct().ToList();
-        //options = uniquelist;
         // Add the resolutions to dropdown, select current value, and refresh the values shown
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
 
+        // Make a reference to the MouseLook Script
         GameObject mc = GameObject.FindGameObjectWithTag("MainCamera");
         ml = mc.GetComponent<MouseLook>();
 
         // Default sens slider
-               
-      
-        sensSlider.value = ml.defaultMouseSensitivity;
+        sensSlider.value = ml.GetMouseSensitivity();
        
     }
-/*
-    private void Update()
-    {
-        sensTempMulti = sensSlider.value;
-        if (sensMultiplier != sensTempMulti)
-        {
-            sensMultiplier = sensTempMulti;
-            SetMouseSensitivity(sensMultiplier);
-        }
-            
-    }
-*/
+
+    // Called from the Volume slider in Options
     public void SetVolume(float volume)
     {
         audioMixer.SetFloat("Volume", volume);
     }
 
+    // Called from the Quality dropdown in the Options menu
     public void SetQuality(int selection)
     {
         QualitySettings.SetQualityLevel(selection);
     }
 
+    // Called from the resolutions dropdown in options
     public void SetResolution(int resolutionIndex)
     {
         Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
     }
-
+     
+    //Called from checkmark in Options
     public void SetFullScreen (bool isFullScreen)
     {
         Screen.fullScreen = isFullScreen;
-    }
-
-    public void SetMouseSensitivity(float sens)
-    {
-        sensMultiplier = sens;
-        float defaultSensitivity = ml.defaultMouseSensitivity;
-        float setSensitivity = defaultSensitivity * sensMultiplier;
-        ml.SetMouseSensitivity(setSensitivity);
     }
 
 }

@@ -5,65 +5,43 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-    public CharacterController controller;
+    
+    CharacterController controller;
 
-    public float speed = 12f;
-    public float moveSpeed;
-    public float gravity = -9.81f;
-    public float jumpHeight = 3f;
-    float directionY;
+    // Movement
+    float speed = 12f;
+    float moveSpeed;
 
-    Vector3 velocity;
-
-    public Transform groundCheck;
-    public float groundDistance = 0.4f;
-    public LayerMask groundMask;
-
-    float x;
-    float z;
-
-    bool isGrounded;
+    //Jumping
+    float gravity = 9.81f;
+    float jumpHeight = 3f;
+    float directionY = 0f;
 
 
+    private void Start()
+    {
+        // Set controller to CharacterController
+        controller = GetComponent<CharacterController>();
+    }
 
     // Update is called once per frame
     void Update()
     {
+        // Sprint if left-shift is held down.
         if (Input.GetKey(KeyCode.LeftShift))
             moveSpeed = speed * 1.5f;
         else
             moveSpeed = speed;
 
-        /*
-        //isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-        isGrounded = controller.isGrounded;
-
-
-
-        x = Input.GetAxis("Horizontal");
-        z = Input.GetAxis("Vertical");
-
-        Vector3 move = transform.right * x + transform.forward * z;
-
-        controller.Move(move * moveSpeed * Time.deltaTime);
-
-        if(Input.GetButtonDown("Jump"))
-            {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            }
-
-        velocity.y += gravity * Time.deltaTime;
-
-        controller.Move(velocity * Time.deltaTime);
-        */
-
+        // Get keyboard input
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
+        // Set direction based on keyboard input
         Vector3 direction = new Vector3(horizontalInput, 0, verticalInput);
 
 
-
+        // If player is grounded, and Jump button is pressed, set directionY to jumpheight.
         if (controller.isGrounded)
         {
             if (Input.GetButtonDown("Jump"))
@@ -73,21 +51,25 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-
+        // Set a Vector3 to include camera rotation in the movement.
         Vector3 move = transform.right * direction.x + transform.forward * direction.z;
         
-
+        // Apply gravity
         directionY -= gravity * Time.deltaTime;
 
+        // If grounded, stop gravity from applying.
         if (controller.isGrounded && directionY < 0)
         {
             directionY = -1f;
         }
 
+        // Set the last direction of vector3 move.
         move.y = directionY;
 
+        // Apply movement to character controller.
         controller.Move(move * moveSpeed * Time.deltaTime);
 
+        
 
 
     }

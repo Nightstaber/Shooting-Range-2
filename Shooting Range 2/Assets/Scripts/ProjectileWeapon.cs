@@ -5,55 +5,67 @@ using TMPro;
 public class ProjectileWeapon : MonoBehaviour
 {
     // Bullet prefab
-    public GameObject bullet;
-    //public GameObject bulletHolePrefab;
+    [SerializeField]
+    GameObject bullet;
 
     // Bullet force
-    public float shootForce, upwardForce,oldShootforce;
+    [SerializeField]
+    float shootForce, upwardForce, oldShootforce;
 
     // Gun stats
-    public float timeBetweenShooting, spread, reloadTime, timeBetweenShots;
-    public int magazineSize, bulletsPerTap;
-    public bool fullAuto;
-
+    [SerializeField]
+    float timeBetweenShooting, spread, reloadTime, timeBetweenShots;
+    [SerializeField]
+    int magazineSize, bulletsPerTap;
+    [SerializeField]
+    bool fullAuto;
     int bulletsLeft, bulletsShot;
 
     // Gun Sounds
-    public AudioSource weaponSound;
-    public AudioClip gunShot;
-    public AudioClip reloadSound;
-
-    // Recoil
-    public Rigidbody playerRb;
-    public float recoilForce;
+    [SerializeField]
+    AudioSource weaponSound;
+    [SerializeField]
+    AudioClip gunShot;
+    [SerializeField]
+    AudioClip reloadSound;
 
     // Bools
     bool shooting, readyToShoot, reloading, bouncing, fullAutoFire;
 
     //Reference
-    public Camera fpsCam;
-    public Transform attackPoint;
+    [SerializeField]
+    Camera fpsCam;
+    [SerializeField]
+    Transform attackPoint;
     MouseLook ml;
 
     // Graphics
-    public ParticleSystem muzzleFlash;
-    public TextMeshProUGUI ammunitionDisplay;
-    public GameObject slowBullets;
+    [SerializeField]
+    ParticleSystem muzzleFlash;
+    [SerializeField]
+    TextMeshProUGUI ammunitionDisplay;
+    [SerializeField]
+    GameObject slowBullets;
     bool bulletSlowed = false;
 
     // Scope
-    public bool scopedWeapon;
-    private bool scoped = false;
-    public GameObject scopeCanvas;
-    public GameObject crosshairCanvas;
-    public float scopedFOV = 15f;
-    private float normalFOV;
-    public float scopedSensMulti = 0.2f;
-    public Animator animator;
-    public Camera weaponCam;
+    [SerializeField]
+    bool scopedWeapon;
+    bool scoped = false;
+    [SerializeField]
+    GameObject scopeCanvas;
+    [SerializeField]
+    GameObject crosshairCanvas;
+    float scopedFOV = 15f;
+    float normalFOV;
+    float scopedSensMulti = 0.2f;
+    [SerializeField]
+    Animator animator;
+    [SerializeField]
+    Camera weaponCam;
 
 
-    //Debuggging
+    // Debuggging tool
     public bool allowInvoke = true;
 
     private void Awake()
@@ -62,11 +74,14 @@ public class ProjectileWeapon : MonoBehaviour
         bulletsLeft = magazineSize;
         readyToShoot = true;
         fullAutoFire = fullAuto;
+
+        // Create a reference to MouseLook script
         ml = FindObjectOfType<MouseLook>();
     }
 
     private void OnEnable()
     {
+        // Make sure BulletSlowed is disabled when switching to a weapon
         oldShootforce = shootForce;
         bulletSlowed = true;
         BulletSlow();
@@ -74,6 +89,7 @@ public class ProjectileWeapon : MonoBehaviour
 
     private void Update()
     {
+        // Call the MyInput method
         MyInput();
 
         // Set ammo display if it exists
@@ -100,7 +116,7 @@ public class ProjectileWeapon : MonoBehaviour
             
             Shoot();
         }
-
+        // Switch between full-auto or singleshot with V key
         if (Input.GetKeyDown("v"))
         {
             if (fullAuto)
@@ -110,6 +126,7 @@ public class ProjectileWeapon : MonoBehaviour
             }
         }
 
+        // If weapon is scoped, bring forth the scope
         if (Input.GetButtonDown("Fire2"))
         {
             if (scopedWeapon)
@@ -118,16 +135,18 @@ public class ProjectileWeapon : MonoBehaviour
             }
         }
         
+        // Press K to start BulletSlow, which allows you to inspect the bullets in the air
         if (Input.GetKeyDown(KeyCode.K))
         {
             BulletSlow();
         }
-
+        // Enable or disable the red text that shows if BulletSlow is enabled
         slowBullets.SetActive(bulletSlowed);
     }
 
     private void Shoot()
     {
+        // No longer ready to shoot, once the shot has been fired
         readyToShoot = false;
 
         // Find the exact hit position using a raycast in the middle of the screen
@@ -154,20 +173,20 @@ public class ProjectileWeapon : MonoBehaviour
         float x = Random.Range(-spread, spread);
         float y = Random.Range(-spread, spread);
 
+        // Measure the distance in the raycast, to correct the spred from low range
         float distanceTest = directionWithoutSpread.sqrMagnitude;
-        Debug.Log("Current distance to target is: " + distanceTest);
 
         // Adjusting spread based on distance to target
-
         float spreadCorrection = 16000f / distanceTest;
 
+        // Make sure spread multiplier is between 1 and 6
         spreadCorrection = Mathf.Clamp(spreadCorrection, 1f, 6f);
 
-        
-
+        // Calculate the new spread value
         x = x / spreadCorrection;
         y = y / spreadCorrection;
 
+        // If distance is below 20 (point blank), no spread will be added.
         if (distanceTest < 20f)
         {
             x = 0f;
@@ -212,23 +231,8 @@ public class ProjectileWeapon : MonoBehaviour
         if (bulletsShot < bulletsPerTap && bulletsLeft > 0)
             Invoke("Shoot", timeBetweenShots);
 
-        // If a target with a targetscript is hit
-        /*
-        Target target = hit.transform.GetComponent<Target>();
-        if (target != null)
-        {
-            Debug.Log("Hit");
-            target.TakeDamage(damage);
-        }
 
-        if (hit.rigidbody != null)
-        {
-            hit.rigidbody.AddForce(-hit.normal * impactForce);
-        }
-
-        GameObject impactGO = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
-        Destroy(impactGO, 1f);
-        */
+        // Destroy the bullet if not exploded, time based on BulletSlow or not
         if (!bulletSlowed)
             Destroy(currentBullet, 2f);
         else
@@ -245,17 +249,20 @@ public class ProjectileWeapon : MonoBehaviour
 
     private void Reload()
     {
+        // Play reloadsound, set reloading to true, and call ReloadFinishehd after reloadTime
         weaponSound.PlayOneShot(reloadSound);
         reloading = true;
         Invoke("ReloadFinished", reloadTime);
     }
 
+    // Finished reloading
     private void ReloadFinished()
     {
         bulletsLeft = magazineSize;
         reloading = false;
     }
 
+    // Decides whether to scope or unscope
     void Scope()
     {
         scoped = !scoped;
@@ -268,6 +275,7 @@ public class ProjectileWeapon : MonoBehaviour
 
     }
 
+    // Unscope the gun, change FOV to normal, and enable crosshair
     void onUnScoped()
     {
         animator.SetBool("isScoped", false);
@@ -278,6 +286,7 @@ public class ProjectileWeapon : MonoBehaviour
         ml.UnScopedSens();
     }
 
+    // Scope the gun, change FOV to zoom in, and disable the crosshair
     IEnumerator OnScoped()
     {
         animator.SetBool("isScoped", true);
@@ -290,7 +299,7 @@ public class ProjectileWeapon : MonoBehaviour
         normalFOV = fpsCam.fieldOfView;
         fpsCam.fieldOfView = scopedFOV;
     }
-
+    // BulletSlow method. Sets low shootingforce, saving the old force, and enlarging the projectile
     private void BulletSlow()
     {
         bulletSlowed = !bulletSlowed;

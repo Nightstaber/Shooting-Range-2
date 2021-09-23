@@ -3,26 +3,34 @@ using UnityEngine.UI;
 
 public class Target : MonoBehaviour
 {
-    public float health = 50f;
-    public GameObject destroyedVersion;
-    public bool isBomb;
+    // Health and destroyed prefab
+    [SerializeField]
+    float health = 50f;
+    [SerializeField]
+    GameObject destroyedVersion;
+    [SerializeField]
+    bool isBomb;
 
     ScoreTracker script;
 
-    public bool destructible;
-    public int points;
+    // Destructible and score
+    [SerializeField]
+    bool destructible;
+    [SerializeField]
+    int points;
 
     private void Start()
     {
-
+        // Set a reference to ScoreTracker
         script = FindObjectOfType<ScoreTracker>();
 
     }
 
 
-
+    // Take Damage script. 
     public void TakeDamage (float amount)
     {
+        // If destructible, then let it take damage, and if it goes <= 0, it will die.
         if (destructible)
         {
             health -= amount;
@@ -33,16 +41,19 @@ public class Target : MonoBehaviour
             }
         }
 
+        // If the script is attached to a bomb, it will explode rather than Die()
         if (isBomb)
         {
             health -= amount;
             if (health <= 0f)
             gameObject.GetComponent<CustomBullet>().Explode();
         }
+
+        // Set the scoretext
         script.ChangeScore(points);
 
     }
-
+    // If there is a destroyed version of the prefab, it will instantiate and set that.
     void Die()
     {
 
@@ -54,6 +65,8 @@ public class Target : MonoBehaviour
             newObject.transform.localScale = new Vector3 (objectScale.x, objectScale.y, objectScale.z);
 
         }
+        
+        // Destroys the original gameObject
         Destroy(gameObject);
     }
 

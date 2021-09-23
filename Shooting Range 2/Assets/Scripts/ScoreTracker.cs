@@ -6,23 +6,19 @@ using TMPro;
 
 public class ScoreTracker : MonoBehaviour
 {
-
-    public TextMeshProUGUI ScoreTrackerText;
+    [SerializeField]
+    TextMeshProUGUI ScoreTrackerText;
     int currentScore = 0;
     int nextScore;
 
     // Start is called before the first frame update
     void Start()
     {
+        // Set score to 0 on start
         ChangeScore(0);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    // Change score method, can be called from other scripts to set the score
     public void ChangeScore(int scoreChange)
     {
         nextScore = currentScore + scoreChange;
