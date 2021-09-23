@@ -48,6 +48,8 @@ public class CustomBullet : MonoBehaviour
 
     public void Explode()
     {
+
+
         if (explosion == null)
         {
             //GameObject go = Instantiate(bulletHolePrefab, transform.position, Quaternion.identity);
@@ -110,7 +112,7 @@ public class CustomBullet : MonoBehaviour
         if (collision.collider.CompareTag("Enemy") && explodeOnTouch) Explode();
 
         // Explosion by amount of collisions
-        if (collisions > maxCollisions) Explode();
+        if (collisions > maxCollisions && !exploded) Explode();
     }
 
     private void Setup()

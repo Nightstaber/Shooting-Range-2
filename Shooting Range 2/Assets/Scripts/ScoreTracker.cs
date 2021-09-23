@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ScoreTracker : MonoBehaviour
 {
 
-    public Text ScoreTrackerText;
+    public TextMeshProUGUI ScoreTrackerText;
     int currentScore = 0;
     int nextScore;
 

@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed;
     public float gravity = -9.81f;
     public float jumpHeight = 3f;
+    float directionY;
 
     Vector3 velocity;
 
@@ -23,6 +24,8 @@ public class PlayerMovement : MonoBehaviour
 
     bool isGrounded;
 
+
+
     // Update is called once per frame
     void Update()
     {
@@ -31,13 +34,11 @@ public class PlayerMovement : MonoBehaviour
         else
             moveSpeed = speed;
 
+        /*
+        //isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        isGrounded = controller.isGrounded;
 
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
-        if (isGrounded && velocity.y < 0 )
-        {
-            velocity.y = -1f;
-        }
 
         x = Input.GetAxis("Horizontal");
         z = Input.GetAxis("Vertical");
@@ -46,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
 
         controller.Move(move * moveSpeed * Time.deltaTime);
 
-        if(Input.GetButtonDown("Jump") && isGrounded)
+        if(Input.GetButtonDown("Jump"))
             {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             }
@@ -54,8 +55,38 @@ public class PlayerMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
+        */
+
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+
+        Vector3 direction = new Vector3(horizontalInput, 0, verticalInput);
 
 
+
+        if (controller.isGrounded)
+        {
+            if (Input.GetButtonDown("Jump"))
+            {
+                directionY = jumpHeight;
+            }
+        }
+
+
+
+        Vector3 move = transform.right * direction.x + transform.forward * direction.z;
+        
+
+        directionY -= gravity * Time.deltaTime;
+
+        if (controller.isGrounded && directionY < 0)
+        {
+            directionY = -1f;
+        }
+
+        move.y = directionY;
+
+        controller.Move(move * moveSpeed * Time.deltaTime);
 
 
 
