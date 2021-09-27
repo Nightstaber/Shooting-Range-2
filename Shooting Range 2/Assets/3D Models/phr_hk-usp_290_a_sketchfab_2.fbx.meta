@@ -1,0 +1,177 @@
+fileFormatVersion: 2
+guid: bc6d30abef0817c4bb4db0165d2a581d
+ModelImporter:
+  serializedVersion: 20200
+  internalIDToNameTable:
+  - first:
+      74: -8482199089023436319
+    second: slide|barrelAction
+  - first:
+      74: 4691667195617058324
+    second: slide|hammerAction
+  - first:
+      74: 2406579822824166341
+    second: slide|magazine Action.001
+  - first:
+      74: -635746120038922184
+    second: slide|slide releaseAction
+  - first:
+      74: -1773958954605252988
+    second: slide|slideAction
+  - first:
+      74: 4529170704522834086
+    second: barrel|barrelAction
+  - first:
+      74: -658542084033431927
+    second: barrel|hammerAction
+  - first:
+      74: -1806512176308286546
+    second: barrel|magazine Action.001
+  - first:
+      74: 3341051393417320380
+    second: barrel|slide releaseAction
+  - first:
+      74: 986537245033652913
+    second: barrel|slideAction
+  - first:
+      74: -4948488341732663893
+    second: hammer|barrelAction
+  - first:
+      74: -1043903629995604647
+    second: hammer|hammerAction
+  - first:
+      74: -1577468715141571002
+    second: hammer|magazine Action.001
+  - first:
+      74: 1030200994733236593
+    second: hammer|slide releaseAction
+  - first:
+      74: 4772768103037816654
+    second: hammer|slideAction
+  - first:
+      74: -88553168314307556
+    second: slide release|barrelAction
+  - first:
+      74: -5921651563717764081
+    second: slide release|hammerAction
+  - first:
+      74: -6173898279312424183
+    second: slide release|magazine Action.001
+  - first:
+      74: -3761621448437683437
+    second: slide release|slide releaseAction
+  - first:
+      74: -1487297592873091924
+    second: slide release|slideAction
+  - first:
+      74: 7564098981238197567
+    second: magazine |barrelAction
+  - first:
+      74: -5681569431595930828
+    second: magazine |hammerAction
+  - first:
+      74: -8444969179307114022
+    second: magazine |magazine Action.001
+  - first:
+      74: -8181791185830442195
+    second: magazine |slide releaseAction
+  - first:
+      74: -2096225531832872398
+    second: magazine |slideAction
+  externalObjects: {}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

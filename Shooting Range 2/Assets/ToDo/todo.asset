@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33714207ad0202c419142573e6e74a38, type: 3}
+  m_Name: todo
+  m_EditorClassIdentifier: 
+  Entries:
+  - Text: " : Add a way to limit the amount of casings on the ground\r"
+    Note: 
+    Tag: TODO
+    File: D:\Onedrive\Unity\Shooting Range 2\Shooting Range 2\Assets\CasingEjector.cs
+    Line: 38
+    PathToShow: Assets/CasingEjector.cs(38)
+  - Text: " : The force of the ejection needs to be changed to include character
+      movement, so casings doesn't clip through weapon when moving right\r"
+    Note: 
+    Tag: BUG
+    File: D:\Onedrive\Unity\Shooting Range 2\Shooting Range 2\Assets\CasingEjector.cs
+    Line: 37
+    PathToShow: Assets/CasingEjector.cs(37)
+  - Text: ": If going VERY close, the bullet might ricochet, before exploding.\r"
+    Note: 
+    Tag: BUG
+    File: D:\Onedrive\Unity\Shooting Range 2\Shooting Range 2\Assets\Scripts\CustomBullet.cs
+    Line: 93
+    PathToShow: Assets/Scripts/CustomBullet.cs(93)
+  - Text: " Add a method to show to UI, if fullauto or singleshot.\r"
+    Note: 
+    Tag: TODO
+    File: D:\Onedrive\Unity\Shooting Range 2\Shooting Range 2\Assets\Scripts\Gun_obsolete.cs
+    Line: 78
+    PathToShow: Assets/Scripts/Gun_obsolete.cs(78)
+  - Text: " : See how many references can be automated\r"
+    Note: 
+    Tag: TODO
+    File: D:\Onedrive\Unity\Shooting Range 2\Shooting Range 2\Assets\Scripts\ProjectileWeapon.cs
+    Line: 7
+    PathToShow: Assets/Scripts/ProjectileWeapon.cs(7)
+  - Text: " Add a method to show to UI, if fullauto or singleshot.\r"
+    Note: 
+    Tag: TODO
+    File: D:\Onedrive\Unity\Shooting Range 2\Shooting Range 2\Assets\Scripts\ProjectileWeapon.cs
+    Line: 162
+    PathToShow: Assets/Scripts/ProjectileWeapon.cs(162)
+  TagsList:
+  - TODO
+  - BUG

@@ -4,42 +4,70 @@ using TMPro;
 
 public class ProjectileWeapon : MonoBehaviour
 {
+    // TODO : See how many references can be automated
+
     // Bullet prefab
+    [Header("Bullet Prefab")]
     [SerializeField]
     GameObject bullet;
+    [Space(20)]
 
     // Bullet force
+    [Header("Bullet Force")]
     [SerializeField]
-    float shootForce, upwardForce, oldShootforce;
+    float shootForce;
+    [SerializeField]
+    float upwardForce;
+    [SerializeField]
+    float oldShootforce;
+    [Space(20)]
 
     // Gun stats
+    [Header("Gun stats")]
     [SerializeField]
-    float timeBetweenShooting, spread, reloadTime, timeBetweenShots;
+    float timeBetweenShooting;
+    [SerializeField]
+    float spread;
+    [SerializeField]
+    float reloadTime;
+    [SerializeField]
+    float timeBetweenShots;
     [SerializeField]
     int magazineSize, bulletsPerTap;
     [SerializeField]
     bool fullAuto;
     int bulletsLeft, bulletsShot;
+    string showFullAuto = "Semi";
+    [Space(20)]
+
 
     // Gun Sounds
+    [Header("Gun sounds")]
     [SerializeField]
     AudioSource weaponSound;
     [SerializeField]
     AudioClip gunShot;
     [SerializeField]
     AudioClip reloadSound;
+    [Space(20)]
 
     // Bools
+    [Header("Bools")]
     bool shooting, readyToShoot, reloading, bouncing, fullAutoFire;
+    [Space(20)]
 
     //Reference
+    [Header("References")]
     [SerializeField]
     Camera fpsCam;
     [SerializeField]
     Transform attackPoint;
     MouseLook ml;
+    CasingEjector ejectorScript;
+    [Space(20)]
 
     // Graphics
+    [Header("Graphics")]
     [SerializeField]
     ParticleSystem muzzleFlash;
     [SerializeField]
@@ -47,8 +75,10 @@ public class ProjectileWeapon : MonoBehaviour
     [SerializeField]
     GameObject slowBullets;
     bool bulletSlowed = false;
+    [Space(20)]
 
     // Scope
+    [Header("Scope")]
     [SerializeField]
     bool scopedWeapon;
     bool scoped = false;
@@ -63,9 +93,11 @@ public class ProjectileWeapon : MonoBehaviour
     Animator animator;
     [SerializeField]
     Camera weaponCam;
+    [Space(20)]
 
 
     // Debuggging tool
+    [Header("Debugging Tool")]
     public bool allowInvoke = true;
 
     private void Awake()
@@ -77,6 +109,11 @@ public class ProjectileWeapon : MonoBehaviour
 
         // Create a reference to MouseLook script
         ml = FindObjectOfType<MouseLook>();
+
+        // Make a reference to the CaseEjector script
+        
+        ejectorScript = gameObject.transform.Find("CasingEjectorHolder").gameObject.GetComponent<CasingEjector>();
+
     }
 
     private void OnEnable()
@@ -85,6 +122,8 @@ public class ProjectileWeapon : MonoBehaviour
         oldShootforce = shootForce;
         bulletSlowed = true;
         BulletSlow();
+
+        
     }
 
     private void Update()
@@ -92,14 +131,19 @@ public class ProjectileWeapon : MonoBehaviour
         // Call the MyInput method
         MyInput();
 
-        // Set ammo display if it exists
+        // Evaluate full-auto or Semi
+        if (fullAutoFire == true)
+            showFullAuto = "Full";
+        else showFullAuto = "Semi";
+
+        // Set ammo display if it exists, including firing mode
         if (ammunitionDisplay != null)
-            ammunitionDisplay.SetText(bulletsLeft / bulletsPerTap + " / " + magazineSize / bulletsPerTap);
+            ammunitionDisplay.SetText(bulletsLeft / bulletsPerTap + " / " + magazineSize / bulletsPerTap + "  Mode: " + showFullAuto);
     }
     private void MyInput()
     {
         // Check if full auto or not
-        if (fullAuto) shooting = (Input.GetKey(KeyCode.Mouse0) && !LocalPauseMenu.GameIsPaused);
+        if (fullAutoFire) shooting = (Input.GetKey(KeyCode.Mouse0) && !LocalPauseMenu.GameIsPaused);
         else shooting = (Input.GetKeyDown(KeyCode.Mouse0) && !LocalPauseMenu.GameIsPaused);
 
         // Reloading
@@ -123,6 +167,9 @@ public class ProjectileWeapon : MonoBehaviour
             {
                 fullAutoFire = !fullAutoFire;
                 //TODO Add a method to show to UI, if fullauto or singleshot.
+
+
+
             }
         }
 
@@ -160,7 +207,7 @@ public class ProjectileWeapon : MonoBehaviour
         else
             targetPoint = ray.GetPoint(75); // If no hit point, select a point away from the player, in the air.
 
-
+        ejectorScript.Initiate();
 
         // Calculating direction from attackPoint to targetPoint
         Vector3 directionWithoutSpread = targetPoint - attackPoint.position;

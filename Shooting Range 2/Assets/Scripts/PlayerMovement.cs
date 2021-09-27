@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     // Movement
     float speed = 12f;
     float moveSpeed;
+    Vector3 finalMove;
 
     //Jumping
     float gravity = 9.81f;
@@ -67,10 +68,14 @@ public class PlayerMovement : MonoBehaviour
         move.y = directionY;
 
         // Apply movement to character controller.
-        controller.Move(move * moveSpeed * Time.deltaTime);
+        finalMove = move * moveSpeed * Time.deltaTime;
+        controller.Move(finalMove);
 
         
+    }
 
-
+    public Vector3 GetMovement()
+    {
+        return finalMove;
     }
 }
