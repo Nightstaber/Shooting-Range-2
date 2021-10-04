@@ -75,6 +75,7 @@ public class ProjectileWeapon : MonoBehaviour
     [SerializeField]
     GameObject slowBullets;
     bool bulletSlowed = false;
+    private AnimatorScript anim;
     [Space(20)]
 
     // Scope
@@ -113,6 +114,11 @@ public class ProjectileWeapon : MonoBehaviour
         // Make a reference to the CaseEjector script
         
         ejectorScript = gameObject.transform.Find("CasingEjectorHolder").gameObject.GetComponent<CasingEjector>();
+
+        if (gameObject.GetComponent<Animator>())
+        {
+            anim = gameObject.GetComponent<AnimatorScript>();
+        }
 
     }
 
@@ -159,6 +165,8 @@ public class ProjectileWeapon : MonoBehaviour
             bulletsShot = 0;
             
             Shoot();
+
+            Debug.Log("Bullets left: " + bulletsLeft);
         }
         // Switch between full-auto or singleshot with V key
         if (Input.GetKeyDown("v"))
@@ -166,7 +174,6 @@ public class ProjectileWeapon : MonoBehaviour
             if (fullAuto)
             {
                 fullAutoFire = !fullAutoFire;
-                //TODO Add a method to show to UI, if fullauto or singleshot.
 
 
 
@@ -191,10 +198,29 @@ public class ProjectileWeapon : MonoBehaviour
         slowBullets.SetActive(bulletSlowed);
     }
 
+    public void CasingEject()
+    {
+        ejectorScript.Eject();
+    }
+
     private void Shoot()
     {
+
         // No longer ready to shoot, once the shot has been fired
         readyToShoot = false;
+
+
+        bulletsLeft--;
+
+        // Check if Animator is present
+        if (anim)
+        {
+            if (bulletsLeft <= 0)
+                anim.ChangeState("LastBullet");
+            else
+                anim.ChangeState("Fire");
+        }
+              
 
         // Find the exact hit position using a raycast in the middle of the screen
         Ray ray = fpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
@@ -262,7 +288,7 @@ public class ProjectileWeapon : MonoBehaviour
         if (muzzleFlash != null)
             muzzleFlash.Play();
 
-        bulletsLeft--;
+       
         bulletsShot++;
 
         // Invoke resetShot function (if not already invoked)
@@ -296,6 +322,12 @@ public class ProjectileWeapon : MonoBehaviour
 
     private void Reload()
     {
+        // Play the Reload animation
+        if (anim)
+        {
+            anim.ChangeState("Reload");
+        }
+
         // Play reloadsound, set reloading to true, and call ReloadFinishehd after reloadTime
         weaponSound.PlayOneShot(reloadSound);
         reloading = true;

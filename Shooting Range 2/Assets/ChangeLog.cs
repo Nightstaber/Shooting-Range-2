@@ -7,7 +7,7 @@
  * [Added]      Weapons will now drop casings after being fired
  * [Optimize]   Did some cleanup in the coding for better performance
  * [Added]      Added different casings for different weapons to be dropped when fired
- * 
+ * [Added]      HK USP with animations added. Animations are slightly off, due for some fine tuning later. 
  * 
  * 0.2.0 - 22.09.2021
  * [Change] Changed all weapons to projectile-based weapons, rather than raycast.

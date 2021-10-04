@@ -31,7 +31,7 @@ public class CasingEjector : MonoBehaviour
         fpsPlayer = FindObjectOfType<PlayerMovement>().gameObject;
     }
 
-    void Eject()
+    public void Eject()
     {
 
         // BUG : The force of the ejection needs to be changed to include character movement, so casings doesn't clip through weapon when moving right

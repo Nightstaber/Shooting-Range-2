@@ -75,7 +75,7 @@ public class Gun : MonoBehaviour
             if (fullAuto) 
             { 
                 fullAutoFire = !fullAutoFire;
-                //TODO Add a method to show to UI, if fullauto or singleshot.
+               
             }
         }
 
