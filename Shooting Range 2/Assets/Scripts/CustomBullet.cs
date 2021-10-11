@@ -38,6 +38,9 @@ public class CustomBullet : MonoBehaviour
     int collisions = 0;
     PhysicMaterial physics_mat;
 
+    // References
+    PopupTarget popUpScript;
+
     private void Start()
     {
         // Run a setup script on start
@@ -78,6 +81,10 @@ public class CustomBullet : MonoBehaviour
                 // Get component of enemy and call TakeDamage
                 if (enemies[i].GetComponent<Target>())
                     enemies[i].GetComponent<Target>().TakeDamage(explosionDamage);
+
+                // See if enemy has a pop up target script
+                if (enemies[i].GetComponentInParent<PopupTarget>())
+                    enemies[i].GetComponentInParent<PopupTarget>().TargetDown();
             }
             // Check for enemies to move
             Collider[] enemiesToMove = Physics.OverlapSphere(transform.position, explosionRange, whatIsEnemies);

@@ -71,11 +71,25 @@ public class PlayerMovement : MonoBehaviour
         finalMove = move * moveSpeed * Time.deltaTime;
         controller.Move(finalMove);
 
+        //Reset targets
+        if (Input.GetKeyDown("l"))
+        {
+            ResetTargets();
+        }
         
     }
 
     public Vector3 GetMovement()
     {
         return finalMove;
+    }
+
+    void ResetTargets()
+    {
+        PopupTarget[] targets = FindObjectsOfType(typeof(PopupTarget)) as PopupTarget[];
+        for (int i = 0; i < targets.Length; i++)
+        {
+            targets[i].TargetReady();
+        }
     }
 }

@@ -47,19 +47,6 @@ public class CasingEjector : MonoBehaviour
         go.transform.localScale = go.transform.localScale * caseScale;
 
 
-        /*
-        // Grabbing character movement, to combat shells moving through the gun when moving right.
-        Vector3 charMove = pm.GetMovement();
-        Vector3 forceMove = new Vector3(0,0,0);
-
-        // Deciding if character is moving left or right, so the force applied is normalized
-        if (charMove.x < 0) forceMove = new Vector3(-charMove.x*100, charMove.y, charMove.z);
-        else if (charMove.x > 0) forceMove = charMove;
-
-        // Add the force
-        goRB.AddForce(forceMove.x * 10 + 150f, 100f, forceMove.z * 10);
-        */
-
         goRB.AddForce(fpsPlayer.transform.right * 150);
         goRB.AddForce(fpsPlayer.transform.up * 100);
 

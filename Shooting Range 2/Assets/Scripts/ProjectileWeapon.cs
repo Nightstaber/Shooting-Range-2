@@ -27,6 +27,7 @@ public class ProjectileWeapon : MonoBehaviour
     [SerializeField]
     float timeBetweenShooting;
     [SerializeField]
+    float defaultSpread;
     float spread;
     [SerializeField]
     float reloadTime;
@@ -120,7 +121,7 @@ public class ProjectileWeapon : MonoBehaviour
         {
             anim = gameObject.GetComponent<AnimatorScript>();
         }
-        recoilScript = GameObject.FindWithTag("MainCamera").transform.GetComponent<Recoil>();
+        recoilScript = GameObject.FindWithTag("MainCamera").transform.parent.GetComponent<Recoil>();
     }
 
     private void OnEnable()
@@ -129,8 +130,8 @@ public class ProjectileWeapon : MonoBehaviour
         oldShootforce = shootForce;
         bulletSlowed = true;
         BulletSlow();
+        spread = defaultSpread;
 
-        
     }
 
     private void Update()
@@ -166,14 +167,20 @@ public class ProjectileWeapon : MonoBehaviour
             bulletsShot = 0;
             
             Shoot();
+        
         }
+
+        // Calculate the spread of firing a weapon
+        if (fullAutoFire)
+            CountSpread();
+
+
         // Switch between full-auto or singleshot with V key
         if (Input.GetKeyDown("v"))
         {
             if (fullAuto)
             {
                 fullAutoFire = !fullAutoFire;
-
 
 
             }
@@ -200,6 +207,21 @@ public class ProjectileWeapon : MonoBehaviour
     public void CasingEject()
     {
         ejectorScript.Eject();
+    }
+
+    private void CountSpread()
+    {
+
+            if (shooting)
+            {
+                if (spread < 12)
+                    spread += (Time.deltaTime / timeBetweenShooting);
+            }
+            else
+            {
+                if (spread > defaultSpread)
+                    spread -= Time.deltaTime * 10;
+            }
     }
 
     private void Shoot()
@@ -245,7 +267,7 @@ public class ProjectileWeapon : MonoBehaviour
         float x = Random.Range(-spread, spread);
         float y = Random.Range(-spread, spread);
 
-        // Measure the distance in the raycast, to correct the spred from low range
+        // Measure the distance in the raycast, to correct the spread from low range
         float distanceTest = directionWithoutSpread.sqrMagnitude;
 
         // Adjusting spread based on distance to target
@@ -295,8 +317,6 @@ public class ProjectileWeapon : MonoBehaviour
         {
             Invoke("ResetShot", timeBetweenShooting);
             allowInvoke = false;
-            // Add recoil to player
-            //playerRb.AddForce(-directionWithSpread.normalized * recoilForce, ForceMode.Impulse);
         }
 
         // If more than one bulletsPerTap repeat the shoot function

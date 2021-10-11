@@ -19,6 +19,18 @@ MonoBehaviour:
     File: D:\Onedrive\Unity\Shooting Range 2\Shooting Range 2\Assets\AnimatorScript.cs
     Line: 21
     PathToShow: Assets/AnimatorScript.cs(21)
+  - Text: ": If going VERY close, the bullet might ricochet, before exploding.\r"
+    Note: 
+    Tag: BUG
+    File: D:\Onedrive\Unity\Shooting Range 2\Shooting Range 2\Assets\Scripts\CustomBullet.cs
+    Line: 93
+    PathToShow: Assets/Scripts/CustomBullet.cs(93)
+  - Text: " : See how many references can be automated\r"
+    Note: 
+    Tag: TODO
+    File: D:\Onedrive\Unity\Shooting Range 2\Shooting Range 2\Assets\Scripts\ProjectileWeapon.cs
+    Line: 7
+    PathToShow: Assets/Scripts/ProjectileWeapon.cs(7)
   - Text: " : Add a way to limit the amount of casings on the ground\r"
     Note: 
     Tag: TODO
@@ -32,24 +44,6 @@ MonoBehaviour:
     File: D:\Onedrive\Unity\Shooting Range 2\Shooting Range 2\Assets\CasingEjector.cs
     Line: 37
     PathToShow: Assets/CasingEjector.cs(37)
-  - Text: ": If going VERY close, the bullet might ricochet, before exploding.\r"
-    Note: 
-    Tag: BUG
-    File: D:\Onedrive\Unity\Shooting Range 2\Shooting Range 2\Assets\Scripts\CustomBullet.cs
-    Line: 93
-    PathToShow: Assets/Scripts/CustomBullet.cs(93)
-  - Text: " Add a method to show to UI, if fullauto or singleshot.\r"
-    Note: 
-    Tag: TODO
-    File: D:\Onedrive\Unity\Shooting Range 2\Shooting Range 2\Assets\Scripts\Gun_obsolete.cs
-    Line: 78
-    PathToShow: Assets/Scripts/Gun_obsolete.cs(78)
-  - Text: " : See how many references can be automated\r"
-    Note: 
-    Tag: TODO
-    File: D:\Onedrive\Unity\Shooting Range 2\Shooting Range 2\Assets\Scripts\ProjectileWeapon.cs
-    Line: 7
-    PathToShow: Assets/Scripts/ProjectileWeapon.cs(7)
   TagsList:
   - TODO
   - BUG

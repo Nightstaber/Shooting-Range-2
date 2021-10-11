@@ -1,5 +1,11 @@
 /*
  * 
+ * 0.2.2
+ * [Removed]    HK USP removed for more focused development
+ * [Added]      Camera recoil while shooting
+ * [Added]      Increasing spread while full-auto firing
+ * [Added]      Popup targets, reset by pressing the "L" button
+ * 
  * 0.2.1
  * [Bugfix]     Fixed a bug where weapons could not damage targets, unless you shot the ground near them
  * [Bugfix]     Fixed a bug where jumping was not possible
