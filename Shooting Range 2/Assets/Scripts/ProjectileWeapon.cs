@@ -64,6 +64,7 @@ public class ProjectileWeapon : MonoBehaviour
     Transform attackPoint;
     MouseLook ml;
     CasingEjector ejectorScript;
+    Recoil recoilScript;
     [Space(20)]
 
     // Graphics
@@ -119,7 +120,7 @@ public class ProjectileWeapon : MonoBehaviour
         {
             anim = gameObject.GetComponent<AnimatorScript>();
         }
-
+        recoilScript = GameObject.FindWithTag("MainCamera").transform.GetComponent<Recoil>();
     }
 
     private void OnEnable()
@@ -165,8 +166,6 @@ public class ProjectileWeapon : MonoBehaviour
             bulletsShot = 0;
             
             Shoot();
-
-            Debug.Log("Bullets left: " + bulletsLeft);
         }
         // Switch between full-auto or singleshot with V key
         if (Input.GetKeyDown("v"))
@@ -310,6 +309,9 @@ public class ProjectileWeapon : MonoBehaviour
             Destroy(currentBullet, 2f);
         else
             Destroy(currentBullet, 30f);
+
+        recoilScript.RecoilFire();
+
     }
 
     private void ResetShot()

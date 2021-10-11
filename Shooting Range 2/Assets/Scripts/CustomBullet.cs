@@ -85,8 +85,8 @@ public class CustomBullet : MonoBehaviour
             {
 
                 // Add explosion force if enemy has a rigidbody
-                if (enemies[i].GetComponent<Rigidbody>())
-                    enemies[i].GetComponent<Rigidbody>().AddExplosionForce(explosionForce, transform.position, explosionRange);
+                if (enemiesToMove[i].GetComponent<Rigidbody>())
+                    enemiesToMove[i].GetComponent<Rigidbody>().AddExplosionForce(explosionForce, transform.position, explosionRange);
 
             }
             
