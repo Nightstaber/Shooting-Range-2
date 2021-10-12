@@ -10,6 +10,10 @@ public class PopupTarget : MonoBehaviour
 
     Quaternion startRot;
     Quaternion targetRot;
+    float popUpTime = 1f;
+    float speedMultiplier = 2f;
+    bool raised = false;
+    bool pointsAllowed;
 
     // Start is called before the first frame update
     void Start()
@@ -21,23 +25,46 @@ public class PopupTarget : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+       if (popUpTime < 1)
+        {
+
+
+            transform.rotation = Quaternion.Slerp(startRot, targetRot, popUpTime);
+            popUpTime += Time.deltaTime * speedMultiplier;
+            Mathf.Clamp(popUpTime, 0, 1f);
+        }
+            
     }
 
     public void TargetReady()
     {
-        //startRot = Quaternion.Euler(0, 90, 90);
+        startRot = Quaternion.Euler(0, 90, 90);
         targetRot = Quaternion.Euler(0, 90, 0);
 
-        transform.rotation = targetRot;
+        popUpTime = 0f;
+        speedMultiplier = 2f;
+
+        raised = true;
     }
     public void TargetDown()
     {
 
-        //startRot = Quaternion.Euler(0, 90, 0);
+        startRot = Quaternion.Euler(0, 90, 0);
         targetRot = Quaternion.Euler(0, 90, 90);
 
-        transform.rotation = targetRot;
+        popUpTime = 0f;
+        speedMultiplier = 4f;
 
+        raised = false;
+    }
+    public void SetRaised(bool _raised)
+    {
+        raised = _raised;
+
+    }
+
+    public bool GetRaised()
+    {
+        return raised;
     }
 }
