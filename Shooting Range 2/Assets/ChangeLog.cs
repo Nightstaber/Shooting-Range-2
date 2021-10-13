@@ -1,4 +1,8 @@
 /*
+ * 0.2.3
+ * [Added]      Added the ability to raise a random popup target by pressing J
+ * [Added]      Popup targets can now be grouped, so not all targets on a range will be selected by random popup target
+ * [Added]      Animations added for popup targets.
  * 
  * 0.2.2
  * [Removed]    HK USP removed for more focused development

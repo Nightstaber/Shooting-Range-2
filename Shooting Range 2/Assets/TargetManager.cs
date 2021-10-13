@@ -13,6 +13,7 @@ public class TargetManager : MonoBehaviour
     void Start()
     {
         targets = FindObjectsOfType(typeof(PopupTarget)) as PopupTarget[];
+        availableTargets = new List<PopupTarget>();
          
     }
 
@@ -28,7 +29,7 @@ public class TargetManager : MonoBehaviour
         // Reset 1 random target
         if (Input.GetKeyDown("j"))
         {
-            ResetRandomTarget();
+            ResetRandomTarget(1);
         }
 
     }
@@ -41,14 +42,11 @@ public class TargetManager : MonoBehaviour
         }
     }
     // BUG Can raise the same random target twice in a row, putting down the target, then raising it again.
-    void ResetRandomTarget()
+    void ResetRandomTarget(int group)
     {
-               
-        //PopupTarget[] availableTargets;
-        // Bug Gives "NullReferenceException" error
         for (int i = 0; i < targets.Length; i++)
         {
-            if (!targets[i].GetRaised())
+            if (!targets[i].GetRaised() && targets[i].GetTargetGroup() == group)
             {
                 availableTargets.Add(targets[i]);
             }
@@ -56,10 +54,11 @@ public class TargetManager : MonoBehaviour
 
         int targetNumber = Random.Range(0, availableTargets.Count);
 
-        if (availableTargets == null)
+        if (availableTargets.Count > 0)
         {
             availableTargets[targetNumber].TargetReady();
             Debug.Log("Target number " + targetNumber + " is selected");
+            availableTargets.Clear();
             
         }
         else

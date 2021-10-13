@@ -7,6 +7,7 @@ public class PopupTarget : MonoBehaviour
     Vector3 startVector;
     Vector3 readyVector;
     [SerializeField] float prepTime;
+    [SerializeField] int targetGroup;
 
     Quaternion startRot;
     Quaternion targetRot;
@@ -67,4 +68,10 @@ public class PopupTarget : MonoBehaviour
     {
         return raised;
     }
+
+    public int GetTargetGroup()
+    {
+        return targetGroup;
+    }
+
 }
