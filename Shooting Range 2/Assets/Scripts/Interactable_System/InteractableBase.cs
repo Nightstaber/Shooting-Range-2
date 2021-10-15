@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class InteractableBase : MonoBehaviour, IInteractable
 {
@@ -13,6 +14,8 @@ public class InteractableBase : MonoBehaviour, IInteractable
         public bool multipleUse;
         public bool isInteractable;
 
+    // References
+        
         TargetManager targetManager;
         Animator animator;
         public int zone;
@@ -42,3 +45,4 @@ public class InteractableBase : MonoBehaviour, IInteractable
         }
     #endregion
 }
+

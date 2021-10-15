@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class InteractionController : MonoBehaviour
 {
@@ -31,6 +32,9 @@ public class InteractionController : MonoBehaviour
 
     private float holdTimer = 0f;
 
+    [SerializeField] private TextMeshProUGUI useText;
+
+    bool textActive;
 
     #endregion
 
@@ -73,11 +77,29 @@ public class InteractionController : MonoBehaviour
                         interactionData.Interactable = _interactable;
                     }
                 }
+                
             }
+
+            
+            if (!textActive)
+            {
+                textActive = true;
+                useText.gameObject.SetActive(true);
+            }
+            
+            //useText.gameObject.SetActive(true);
         }
-    else
+        else
         {
             interactionData.ResetData();
+
+            if (textActive)
+            {
+                textActive = false;
+                useText.gameObject.SetActive(false);
+            }
+
+            //useText.gameObject.SetActive(false);
         }
 
         Debug.DrawRay(_ray.origin, _ray.direction * rayDistance, _hitSomething ? Color.green : Color.red);
