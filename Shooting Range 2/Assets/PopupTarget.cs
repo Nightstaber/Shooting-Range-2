@@ -7,8 +7,9 @@ public class PopupTarget : MonoBehaviour
     Vector3 startVector;
     Vector3 readyVector;
     [SerializeField] float prepTime;
-    [SerializeField] int targetGroup;
-
+    int targetGroup;
+    [SerializeField]
+    Quaternion downRot;
     Quaternion startRot;
     Quaternion targetRot;
     float popUpTime = 1f;
@@ -16,11 +17,15 @@ public class PopupTarget : MonoBehaviour
     bool raised = false;
     bool pointsAllowed;
 
+
     // Start is called before the first frame update
     void Start()
     {
-        startRot = Quaternion.Euler(0, 90, 90);
-        targetRot = Quaternion.Euler(0, 90, 0);
+        downRot = transform.rotation;
+        startRot = downRot;
+        targetRot = Quaternion.Euler(downRot.eulerAngles.x, downRot.eulerAngles.y, 0);
+        GameObject parent = transform.parent.gameObject;
+        targetGroup = parent.gameObject.GetComponentInChildren<GroupSetter>().GetCurrentZone();
     }
 
     // Update is called once per frame
@@ -39,8 +44,8 @@ public class PopupTarget : MonoBehaviour
 
     public void TargetReady()
     {
-        startRot = Quaternion.Euler(0, 90, 90);
-        targetRot = Quaternion.Euler(0, 90, 0);
+        startRot = downRot;
+        targetRot = Quaternion.Euler(downRot.eulerAngles.x, downRot.eulerAngles.y, 0);
 
         popUpTime = 0f;
         speedMultiplier = 2f;
@@ -50,8 +55,8 @@ public class PopupTarget : MonoBehaviour
     public void TargetDown()
     {
 
-        startRot = Quaternion.Euler(0, 90, 0);
-        targetRot = Quaternion.Euler(0, 90, 90);
+        startRot = Quaternion.Euler(downRot.eulerAngles.x, downRot.eulerAngles.y, 0);
+        targetRot = downRot;
 
         popUpTime = 0f;
         speedMultiplier = 4f;

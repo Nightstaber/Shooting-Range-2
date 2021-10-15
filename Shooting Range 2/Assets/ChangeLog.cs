@@ -1,8 +1,14 @@
 /*
+ * 0.2.4
+ * [Added]      Added interactable buttons to raise targets. Press E to use.
+ *
+ * 
  * 0.2.3
  * [Added]      Added the ability to raise a random popup target by pressing J
  * [Added]      Popup targets can now be grouped, so not all targets on a range will be selected by random popup target
  * [Added]      Animations added for popup targets.
+ * [Added]      Zone groups with triggers for checking which targets can be randomly popped up
+ * [Bugfix]     Fixed a bug which made targets popup from wrong direction, if moved around
  * 
  * 0.2.2
  * [Removed]    HK USP removed for more focused development

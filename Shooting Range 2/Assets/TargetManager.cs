@@ -7,6 +7,7 @@ public class TargetManager : MonoBehaviour
 {
     PopupTarget[] targets;
     List<PopupTarget> availableTargets;
+    TargetGroupManager groupManager;
 
 
     // Start is called before the first frame update
@@ -14,7 +15,7 @@ public class TargetManager : MonoBehaviour
     {
         targets = FindObjectsOfType(typeof(PopupTarget)) as PopupTarget[];
         availableTargets = new List<PopupTarget>();
-         
+        groupManager = FindObjectOfType<TargetGroupManager>();
     }
 
     // Update is called once per frame
@@ -29,7 +30,19 @@ public class TargetManager : MonoBehaviour
         // Reset 1 random target
         if (Input.GetKeyDown("j"))
         {
-            ResetRandomTarget(1);
+            // Ask group manager which zone player is in
+            int zone = groupManager.GetCurrentZone();
+            
+            // Debug to console the selected zone
+            Dictionary<int, string> dicZone = groupManager.GetTargetGroups();
+            
+            string name = null;
+
+            dicZone.TryGetValue(zone, out name);
+
+            print("Selected zone number is: " + zone + " and the current zone is called: " + name);
+
+            ResetRandomTarget(zone);
         }
 
     }
@@ -42,7 +55,7 @@ public class TargetManager : MonoBehaviour
         }
     }
     // BUG Can raise the same random target twice in a row, putting down the target, then raising it again.
-    void ResetRandomTarget(int group)
+    public void ResetRandomTarget(int group)
     {
         for (int i = 0; i < targets.Length; i++)
         {
