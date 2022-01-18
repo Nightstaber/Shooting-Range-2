@@ -25,7 +25,7 @@ public class PopupTarget : MonoBehaviour
         startRot = downRot;
         targetRot = Quaternion.Euler(downRot.eulerAngles.x, downRot.eulerAngles.y, 0);
         GameObject parent = transform.parent.gameObject;
-        targetGroup = parent.gameObject.GetComponentInChildren<GroupSetter>().GetCurrentZone();
+        targetGroup = parent.gameObject.GetComponent<GroupSetter>().GetCurrentZone();
     }
 
     // Update is called once per frame

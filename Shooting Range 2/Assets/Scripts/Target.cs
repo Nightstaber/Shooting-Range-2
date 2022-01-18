@@ -12,6 +12,7 @@ public class Target : MonoBehaviour
     bool isBomb;
 
     ScoreTracker script;
+    PopupTarget popTarget;
 
     // Destructible and score
     [SerializeField]
@@ -23,8 +24,9 @@ public class Target : MonoBehaviour
     {
         // Set a reference to ScoreTracker
         script = FindObjectOfType<ScoreTracker>();
-
-    }
+        if (gameObject.GetComponentInParent<PopupTarget>())
+            popTarget = gameObject.GetComponentInParent<PopupTarget>();
+        }
 
 
     // Take Damage script. 
@@ -50,7 +52,12 @@ public class Target : MonoBehaviour
         }
 
         // Set the scoretext
-        script.ChangeScore(points);
+        if (popTarget && popTarget.GetRaised())
+            script.ChangeScore(points);
+        else
+        if (!popTarget)
+            script.ChangeScore(points);
+
 
     }
     // If there is a destroyed version of the prefab, it will instantiate and set that.

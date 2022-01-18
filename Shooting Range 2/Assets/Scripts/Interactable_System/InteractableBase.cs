@@ -16,8 +16,8 @@ public class InteractableBase : MonoBehaviour, IInteractable
 
     // References
         
-        TargetManager targetManager;
-        Animator animator;
+        protected TargetManager targetManager;
+        protected Animator animator;
         public int zone;
     #endregion
 
@@ -37,11 +37,9 @@ public class InteractableBase : MonoBehaviour, IInteractable
         targetManager = FindObjectOfType<TargetManager>();
         animator = gameObject.GetComponent<Animator>();
     }
-    public void OnInteract()
+    public virtual void OnInteract()
         {
-            Debug.Log("Interacted: " + gameObject.name);
-            targetManager.ResetRandomTarget(zone);
-            animator.Play("ButtonPress");
+           
         }
     #endregion
 }

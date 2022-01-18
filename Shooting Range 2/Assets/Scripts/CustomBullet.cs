@@ -83,7 +83,7 @@ public class CustomBullet : MonoBehaviour
                     enemies[i].GetComponent<Target>().TakeDamage(explosionDamage);
 
                 // See if enemy has a pop up target script
-                if (enemies[i].GetComponentInParent<PopupTarget>())
+                if (enemies[i].GetComponentInParent<PopupTarget>() && enemies[i].GetComponentInParent<PopupTarget>().GetRaised())
                     enemies[i].GetComponentInParent<PopupTarget>().TargetDown();
             }
             // Check for enemies to move

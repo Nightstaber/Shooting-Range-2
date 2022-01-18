@@ -13,8 +13,7 @@ public class GroupSetter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject parent = transform.parent.gameObject;
-        groupManager = parent.gameObject.GetComponentInParent<TargetGroupManager>();
+        groupManager = gameObject.GetComponentInParent<TargetGroupManager>();
     }
 
     private void OnTriggerEnter(Collider other)

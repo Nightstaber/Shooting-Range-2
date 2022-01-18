@@ -8,6 +8,7 @@ public class TargetManager : MonoBehaviour
     PopupTarget[] targets;
     List<PopupTarget> availableTargets;
     TargetGroupManager groupManager;
+    private PopupTarget nextTarget;
 
 
     // Start is called before the first frame update
@@ -40,9 +41,7 @@ public class TargetManager : MonoBehaviour
 
             dicZone.TryGetValue(zone, out name);
 
-            print("Selected zone number is: " + zone + " and the current zone is called: " + name);
-
-            ResetRandomTarget(zone);
+            //ResetRandomTarget(zone);
         }
 
     }
@@ -54,8 +53,8 @@ public class TargetManager : MonoBehaviour
             targets[i].TargetReady();
         }
     }
-    // BUG Can raise the same random target twice in a row, putting down the target, then raising it again.
-    public void ResetRandomTarget(int group)
+
+    public PopupTarget SelectRandomTarget(int group)
     {
         for (int i = 0; i < targets.Length; i++)
         {
@@ -69,16 +68,15 @@ public class TargetManager : MonoBehaviour
 
         if (availableTargets.Count > 0)
         {
-            availableTargets[targetNumber].TargetReady();
-            Debug.Log("Target number " + targetNumber + " is selected");
+            nextTarget = availableTargets[targetNumber];
             availableTargets.Clear();
-            
+            return nextTarget;
         }
         else
         {
-            print("No available targets");
+            return null;
         }
-        
+
     }
 }
 

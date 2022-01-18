@@ -1,6 +1,10 @@
 /*
  * 0.2.4
- * [Added]      Added interactable buttons to raise targets. Press E to use.
+ * [Added]      Added interactable buttons to raise targets. Press E to use
+ * [Added]      UI Text to indicate "Press E to use"
+ * [Bugfix]     Fixed a bug that allowed points to be awarded while popuptargets was down
+ * [Added]      Random delay between 0 and 3 seconds before targets popup, when pressing the button
+ * 
  *
  * 
  * 0.2.3

@@ -46,9 +46,12 @@ public class CasingEjector : MonoBehaviour
         //Scale the casing if needed
         go.transform.localScale = go.transform.localScale * caseScale;
 
-
+        // Add up and sideway force
         goRB.AddForce(fpsPlayer.transform.right * 150);
         goRB.AddForce(fpsPlayer.transform.up * 100);
+
+        Vector3 randomRotation = new Vector3(Random.Range(90f, 120f), 0, 0);
+        goRB.AddTorque(randomRotation * 5, ForceMode.Impulse);
 
         // Set the parent of the casings, so they are not all in the inspector
         go.transform.SetParent(casingBin.transform);
